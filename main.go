@@ -2,6 +2,7 @@ package main
 
 import (
 	"crud-api-wire/models"
+	"crud-api-wire/wire"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +25,7 @@ func main() {
 	db := initDB()
 	defer db.Close() // fungsi defer ?
 
-	productAPI := InitProductAPI(db)
+	productAPI := wire.InitProductAPI(db)
 
 	r := gin.Default() // kenapa harus diseting default ?
 
