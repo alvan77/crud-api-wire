@@ -2,6 +2,7 @@ package repository
 
 import (
 	"crud-api-wire/models"
+	"log"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -16,9 +17,14 @@ func ProvideProductRepository(DB *gorm.DB) ProductRepository {
 	return ProductRepository{DB: DB}
 }
 
-func (p *ProductRepository) FindAll() []models.Product {
-	var products []models.Product
-	p.DB.Find(&products)
+func (p *ProductRepository) FindAll() []models.ProductDTO {
+	var products []models.ProductDTO
+	var err error
+	log.Println("error")
+	err = p.DB.Find(&products).Error
+	if err != nil {
+		log.Println(err)
+	}
 	return products
 }
 

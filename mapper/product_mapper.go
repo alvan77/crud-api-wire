@@ -3,11 +3,11 @@ package mapper
 import "crud-api-wire/models"
 
 func ToProduct(productDTO models.ProductDTO) models.Product {
-	return models.Product{Code: productDTO.Code, Price: productDTO.Price}
+	return models.Product{AssingedTo: productDTO.AssingedTo, Task: productDTO.Task, Deadline: productDTO.Deadline}
 }
 
 func ToProductDTO(product models.Product) models.ProductDTO {
-	return models.ProductDTO{ID: product.ID, Code: product.Code, Price: product.Price}
+	return models.ProductDTO{ID: product.ID, AssingedTo: product.AssingedTo, Task: product.Task, Deadline: product.Deadline}
 }
 
 func ToProductDTOs(products []models.Product) []models.ProductDTO {

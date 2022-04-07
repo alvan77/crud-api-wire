@@ -3,7 +3,8 @@ package main
 import (
 	"crud-api-wire/models"
 	"crud-api-wire/wire"
-	"os"
+	"fmt"
+	"log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -11,23 +12,28 @@ import (
 )
 
 func initDB() *gorm.DB {
-	db, err := gorm.Open("mysql", os.Getenv("DB_URL"))
+	dbUser := "root"
+	log.Println(dbUser)
+	pass := "root"
+	host := "localhost"
+	port := "3306"
+	dbName := "api_db"
+	URL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", dbUser, pass, host, port, dbName)
+	db, err := gorm.Open("mysql", URL)
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
-
 	db.AutoMigrate(&models.Product{})
-
 	return db
 }
 
 func main() {
 	db := initDB()
-	defer db.Close() // fungsi defer ?
+	defer db.Close()
 
 	productAPI := wire.InitProductAPI(db)
 
-	r := gin.Default() // kenapa harus diseting default ?
+	r := gin.Default()
 
 	r.GET("/products", productAPI.FindAll)
 	r.GET("/products/detail/:id", productAPI.FindByID)

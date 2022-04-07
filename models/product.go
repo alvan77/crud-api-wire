@@ -4,6 +4,7 @@ import "github.com/jinzhu/gorm"
 
 type Product struct {
 	gorm.Model
-	Code  string
-	Price uint
+	AssingedTo string `json:"assignedTo"`
+	Task       string `json:"task"`
+	Deadline   string `json:"deadline"`
 }

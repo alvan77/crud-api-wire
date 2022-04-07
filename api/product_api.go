@@ -27,7 +27,9 @@ func ProvideProductAPI(p service.ProductService) ProductAPI {
 func (p *ProductAPI) FindAll(c *gin.Context) {
 	products := p.ProductService.FindAll()
 
-	c.JSON(http.StatusOK, gin.H{"products": mapper.ToProductDTOs(products)})
+	// c.JSON(http.StatusOK, gin.H{"products": mapper.ToProductDTOs(products)})
+	c.JSON(http.StatusOK, gin.H{"products": products})
+
 }
 
 // mendefinisikan reciever dengan parameter p, dan membuat method findByID dengan parameter c
@@ -66,9 +68,9 @@ func (p *ProductAPI) Update(c *gin.Context) {
 		c.Status(http.StatusBadRequest)
 		return
 	}
-
-	product.Code = productDTO.Code
-	product.Price = productDTO.Price
+	product.AssingedTo = productDTO.AssingedTo
+	product.Task = productDTO.Task
+	product.Deadline = productDTO.Deadline
 	p.ProductService.Save(product)
 
 	c.Status(http.StatusOK)

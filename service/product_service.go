@@ -14,7 +14,7 @@ func ProvideProductService(p repository.ProductRepository) ProductService {
 	return ProductService{ProductRepository: p}
 }
 
-func (p *ProductService) FindAll() []models.Product {
+func (p *ProductService) FindAll() []models.ProductDTO {
 	return p.ProductRepository.FindAll()
 }
 
