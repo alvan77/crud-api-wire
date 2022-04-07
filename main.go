@@ -2,7 +2,6 @@ package main
 
 import (
 	"crud-api-wire/models"
-	"crud-api-wire/wire"
 	"fmt"
 	"log"
 
@@ -31,15 +30,15 @@ func main() {
 	db := initDB()
 	defer db.Close()
 
-	productAPI := wire.InitProductAPI(db)
+	productAPI := ProductHandler(db)
 
 	r := gin.Default()
 
 	r.GET("/products", productAPI.FindAll)
-	r.GET("/products/detail/:id", productAPI.FindByID)
-	r.POST("/products/add", productAPI.Create)
-	r.PUT("/products/update/:id", productAPI.Update)
-	r.DELETE("/products/delete/:id", productAPI.Delete)
+	// r.GET("/products/detail/:id", productAPI.FindByID)
+	// r.POST("/products/add", productAPI.Create)
+	// r.PUT("/products/update/:id", productAPI.Update)
+	// r.DELETE("/products/delete/:id", productAPI.Delete)
 
 	err := r.Run()
 	if err != nil {

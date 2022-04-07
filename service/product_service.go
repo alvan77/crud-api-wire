@@ -6,27 +6,31 @@ import (
 )
 
 // mendefinisikan struct product service yg membawa product repository dari folder repository
-type ProductService struct {
+
+type ProductService interface {
+	FindAll() []models.ProductDTO
+}
+type productService struct {
 	ProductRepository repository.ProductRepository
 }
 
 func ProvideProductService(p repository.ProductRepository) ProductService {
-	return ProductService{ProductRepository: p}
+	return &productService{ProductRepository: p}
 }
 
-func (p *ProductService) FindAll() []models.ProductDTO {
+func (p *productService) FindAll() []models.ProductDTO {
 	return p.ProductRepository.FindAll()
 }
 
-func (p *ProductService) FindByID(id uint) models.Product {
-	return p.ProductRepository.FindByID(id)
-}
+// func (p *ProductService) FindByID(id uint) models.Product {
+// 	return p.ProductRepository.FindByID(id)
+// }
 
-func (p *ProductService) Save(product models.Product) models.Product {
-	p.ProductRepository.Save(product)
-	return product
-}
+// func (p *ProductService) Save(product models.Product) models.Product {
+// 	p.ProductRepository.Save(product)
+// 	return product
+// }
 
-func (p *ProductService) Delete(product models.Product) {
-	p.ProductRepository.Delete(product)
-}
+// func (p *ProductService) Delete(product models.Product) {
+// 	p.ProductRepository.Delete(product)
+// }

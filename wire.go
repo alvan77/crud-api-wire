@@ -1,4 +1,6 @@
-package wire
+//+build wireinject
+
+package main
 
 import (
 	"crud-api-wire/api"
@@ -9,7 +11,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func InitProductAPI(db *gorm.DB) api.ProductAPI {
+func ProductHandler(db *gorm.DB) api.ProductAPI {
 	wire.Build(repository.ProvideProductRepository, service.ProvideProductService, api.ProvideProductAPI)
 	return api.ProductAPI{}
 }
