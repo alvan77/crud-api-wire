@@ -1,10 +1,11 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import "time"
 
 type Product struct {
-	gorm.Model
-	AssingedTo string `json:"assignedTo"`
-	Task       string `json:"task"`
-	Deadline   string `json:"deadline"`
+	ID        uint      `json:"id"`
+	Code      string    `json:"code" validate:"required"`
+	Price     uint      `json:"price" validate:"required"`
+	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
+	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
